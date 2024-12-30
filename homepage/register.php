@@ -1,5 +1,5 @@
 <?php
-include('connection.php');
+include ('connection.php');
 
 // Collecting info
 $username = $_POST['username'];
@@ -9,6 +9,7 @@ $address = $_POST['address'];
 $password = $_POST['password'];
 $cpassword = $_POST['cpassword'];
 $role = $_POST['role'];
+$skills = $_POST['skills'];
 
 // Checking if the email already exists
 $email_check_sql = "SELECT * FROM `users` WHERE `email` = '$email'";
@@ -19,8 +20,8 @@ if ($email_check_query->num_rows > 0) {
     echo "Email address is already registered. Please use a different email.";
 } else {
     // If the email is unique, proceeding with the insertion
-    $sql = "INSERT INTO `users`(`name`, `phone`, `email`, `address`, `password`, `cpassword`, `role`) VALUES ('$username','$phone','$email','$address','$password','$cpassword', '$role')";
-    
+    $sql = "INSERT INTO `users`(`name`, `phone`, `email`, `address`, `password`, `cpassword`, `role`, `skills`) VALUES ('$username','$phone','$email','$address','$password','$cpassword', '$role', '$skills')";
+
     $query = $conn->query($sql);
 
     if ($query) {

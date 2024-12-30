@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -109,8 +108,8 @@
     </nav>
   </header>
 
-    <!-- </header> -->
-    <section id="homebar">
+  <!-- </header> -->
+  <section id="homebar">
     <div class="banner">
       <div class="banner-text">
         <p>
@@ -150,9 +149,9 @@
         <img src="../images/banner1.png" alt="banner" />
       </div>
     </div>
-    </section>
+  </section>
 
-    <section id = "category">
+  <section id="category">
     <div class="categories">
       <div class="categorie-text">
         <h4>High Demand Categories Featured</h4>
@@ -176,27 +175,27 @@
         </div>
       </div>
     </div>
-    </section>
+  </section>
 
-    <section id="about">
-      <div class="main1">
-        <img src="../images/banner1.png" alt="banner">
-        <div class="about-text">
-          <h1>About Us</h1>
-          <h5>Connecting Employees with Employers</h5>
-          <p>Lorem ipsum dolor sit, amet consectetur 
-            adipisicing elit. Excepturi dolorum numquam recusandae
-            corrupti inventore consectetur veniam sapiente,
-            accusamus, eius sed sint aliquam et minima modi atque.
-            Consequatur perspiciatis neque quibusdam consectetur
-            totam repellendus dolore sunt temporibus? Quidem at 
-            quas nisi mollitia tenetur debitis veritatis adipisci 
-            reiciendis. Nobis, provident? Totam enim recusandae 
-            adipisci rerum esse.</p>
-            <button type="button" class="about-us-button">Read More</button>
-        </div>
+  <section id="about">
+    <div class="main1">
+      <img src="../images/banner1.png" alt="banner">
+      <div class="about-text">
+        <h1>About Us</h1>
+        <h5>Connecting Employees with Employers</h5>
+        <p>Jobspace service was developed for creating an interactive job vacancy form for candidates. This web
+          application manages update both from the job seekers as well as the companies. It’s unique development
+          methodology helps in acquiring the client and candidate information and separating them according to the job
+          requirements and vacancies.
+          The online access to it provides details of the job. An employer being registered in the web site has the
+          facility to use the services. Being an authorized user, he can publish vacancy details and can search number
+          of Employees on portal and also, he can search candidates on basis of the key skill which employee provides on
+          registration.
+        </p>
+        <button type="button" class="about-us-button">Read More</button>
       </div>
-    </section>
+    </div>
+  </section>
 
 
   <footer>
@@ -212,7 +211,7 @@
       </ul>
     </div> -->
     <div class="footer-bottom">
-      <p>copyright &copy; 2023 All Rights Reserved<span>&nbsp; Arbeen & Shisham</span></p>
+      <p>copyright &copy; 2023 All Rights Reserved<span>&nbsp; Arbeen </span></p>
     </div>
   </footer>
   <script src="https://kit.fontawesome.com/156e77427f.js" crossorigin="anonymous"></script>

@@ -135,6 +135,13 @@ if (isset($_SESSION['login_error'])) {
                 </select>
               </div>
 
+              <div class="input-wrap">
+                 <input type="text" class="input-field" autocomplete="off" name="skills" id="contact-skills" onkeyup="validateSkills()" required />
+                 <label>Skills (e.g., Python, SQL, React)</label>
+                 <span id="skills-error"></span>
+              </div>
+
+
               <input type="submit" value="Sign Up" class="sign-btn" onclick="openPopup()" />
               <span id="submit-error" style="display: none"></span>
             </div>

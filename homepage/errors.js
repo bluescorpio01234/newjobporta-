@@ -123,6 +123,24 @@ function validateCPassword() {
   return true;
 }
 
+
+    function validateSkills() {
+        const skillsInput = document.getElementById("contact-skills").value;
+        const errorSpan = document.getElementById("skills-error");
+        
+        // Allow letters, numbers, spaces, and commas
+        const regex = /^[a-zA-Z0-9,\s]*$/;
+
+        if (!regex.test(skillsInput)) {
+            errorSpan.textContent = "Please enter valid skills separated by commas.";
+            errorSpan.style.color = "red";
+        } else {
+            errorSpan.textContent = ""; // Clear error
+        }
+    }
+
+
+
 function validateForm(event) {
   var submitError = document.getElementById("submit-error");
   var successMessage = document.getElementById("success-message");
@@ -133,7 +151,8 @@ function validateForm(event) {
     !validateEmail() ||
     !validateAddress() ||
     !validatePassword() ||
-    !validateCPassword()
+    !validateCPassword() ||
+    validateSkills()
   ) {
     submitError.style.display = "block";
     submitError.innerHTML = "Please fix the errors.";

@@ -1,48 +1,18 @@
 <?php
-
 include("../homepage/connection.php");
 include('../include/include.php');
 
 if (isset($_GET['job_id'])) {
     $job_id = $_GET['job_id'];
-
-    
     $query = "SELECT j.*, c.name AS company_name, c.logo AS company_logo, j.points AS job_points, j.skills AS job_skills FROM jobs j
-              JOIN company c ON j.company_id = c.id
-              WHERE j.id = ?";
+JOIN company c ON j.company_id = c.id
+WHERE j.id = $job_id";
 
-    $stmt = mysqli_prepare($conn, $query);
+    $result = mysqli_query($conn, $query);
 
-    if ($stmt) {
-      
-        mysqli_stmt_bind_param($stmt, "i", $job_id);
-
-
-        mysqli_stmt_execute($stmt);
-
-       
-        $result = mysqli_stmt_get_result($stmt);
-
-        if ($result) {
-            $job = mysqli_fetch_assoc($result);
-
-            if($job !== null){
-            $points = $job['job_points'];
-            $skills = $job['job_skills'];
-            }
-            else {
-                // Handling the case where no job was found with the given ID
-                echo "Upload CV to apply: " . $job_id;
-            }
-}
-else{
-    echo "Query failed: " . mysqli_error($conn);
-}
-mysqli_stmt_close($stmt);
-    }else {
-       
-        echo "Prepared statement creation failed: " . mysqli_error($conn);
-    }
+    $job = mysqli_fetch_assoc($result);
+    $points = $job['job_points'];
+    $skills = $job['job_skills'];
 }
 ?>
 
@@ -57,8 +27,28 @@ mysqli_stmt_close($stmt);
     <link rel="stylesheet" href="bac.css">
     <link rel="stylesheet" href="style.css">
     <style>
-    #imageUpload {
-      position: absolute;
+        .job-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .job-card {
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+            background-color: #f9f9f9;
+        }
+
+        .job-card h3 {
+            margin: 10px 0;
+            font-size: 1.2em;
+        }
+
+        #imageUpload {
+            position: absolute;
 
         }
 
@@ -67,7 +57,7 @@ mysqli_stmt_close($stmt);
             width: 250px;
             height: 600px;
             margin-left: 30px;
-            margin-top: 30px;i43pou
+            margin-top: 30px;
         }
 
         .apply-bn {
@@ -212,13 +202,13 @@ mysqli_stmt_close($stmt);
                     <a href="../homepage/user-index.php" class="nav-link">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link">View Jobs</a>
+                    <a href="../homepage/user-index.php" class="nav-link">View Jobs</a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link">Features</a>
+                    <a href="../homepage/user-index.php" class="nav-link">Features</a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link">About Us</a>
+                    <a href="../homepage/user-index.php" class="nav-link">About Us</a>
                 </li>
             </ul>
 
@@ -247,7 +237,7 @@ mysqli_stmt_close($stmt);
 
                     <span><?php echo $job['company_name']; ?></span>
                     <span><i class="fas fa-map-marker-alt"></i> <?php echo $job['location']; ?></span>
-                    <span>Rs.<?php echo $job['salary']; ?></span>
+                    <span><?php echo $job['salary']; ?></span>
                 </div>
                 <div class="details">
                     <h3>Job Description</h3>
@@ -262,13 +252,13 @@ mysqli_stmt_close($stmt);
                     <?php
                     $lines = explode("\n", $points);
 
-                    
+
                     echo "<ul>";
                     foreach ($lines as $line) {
-                    
+
                         $line = trim($line);
                         if (!empty($line)) {
-                           
+
                             echo "<li>$line</li>";
                         }
                     }
@@ -280,13 +270,13 @@ mysqli_stmt_close($stmt);
                         <?php
                         $lines = explode("\n", $skills);
 
-                        
+
                         echo "<ul>";
                         foreach ($lines as $line) {
-                            
+
                             $line = trim($line);
                             if (!empty($line)) {
-                                
+
                                 echo "<li>$line</li>";
                             }
                         }
@@ -303,12 +293,17 @@ mysqli_stmt_close($stmt);
 
 
 
-                        <li>Posted date : <span class="ov" style="margin-left: 3rem;"><?php echo $job['posted_date']; ?></span></li>
-                        <li>Location : <span class="ov" style="margin-left: 4.8rem;"><?php echo $job['location']; ?></span></li>
-                        <li>Vacancy : <span class="ov" style="margin-left: 4.7rem;"><?php echo $job['no_of_vacancy']; ?></span></li>
-                        <li>Job nature : <span class="ov" style="margin-left: 3.8rem;"><?php echo $job['available_for']; ?></span></li>
+                        <li>Posted date : <span class="ov"
+                                style="margin-left: 3rem;"><?php echo $job['posted_date']; ?></span></li>
+                        <li>Location : <span class="ov" style="margin-left: 4.8rem;"><?php echo $job['location']; ?></span>
+                        </li>
+                        <li>Vacancy : <span class="ov"
+                                style="margin-left: 4.7rem;"><?php echo $job['no_of_vacancy']; ?></span></li>
+                        <li>Job nature : <span class="ov"
+                                style="margin-left: 3.8rem;"><?php echo $job['available_for']; ?></span></li>
                         <li>Salary : <span class="ov" style="margin-left: 6.1rem;"><?php echo $job['salary']; ?></span></li>
-                        <li>Application date : <span class="ov" style="margin-left: 1rem;"><?php echo $job['deadline']; ?></span></li>
+                        <li>Application date : <span class="ov"
+                                style="margin-left: 1rem;"><?php echo $job['deadline']; ?></span></li>
 
 
                         <form action="apply-job.php" method="POST" enctype="multipart/form-data" class="apply-form">
@@ -320,21 +315,13 @@ mysqli_stmt_close($stmt);
                             <button type="submit" id="apply-now" onclick="message()">Apply Now</button>
 
                             <div class="message">
-        <div class="success" id="success">
-            <?php
-            // Check if the "msg" key is set in the session
-            if (isset($_SESSION["msg"])) {
-                echo $_SESSION["msg"];
-                // Unset or clear the session variable after displaying it to avoid showing it again
-                unset($_SESSION["msg"]);
-            }
-            ?>
-        </div>
-        <div class="danger" id="danger" name="danger">
-            Can't be Empty!
-        </div>
-    </div>
-
+                                <div class="success" id="success">
+                                    Successfully Applied!
+                                </div>
+                                <div class="danger" id="danger" name="danger">
+                                    Can't be Empty!
+                                </div>
+                            </div>
 
                     </div>
 
@@ -344,6 +331,129 @@ mysqli_stmt_close($stmt);
         </div>
     <?php }
     ?>
+
+    <?php
+
+
+    function cosineSimilarity($vec1, $vec2)
+    {
+        $dotProduct = 0;
+        $magnitude1 = 0;
+        $magnitude2 = 0;
+
+        foreach ($vec1 as $key => $value) {
+            if (isset($vec2[$key])) {
+                $dotProduct += $value * $vec2[$key];
+            }
+            $magnitude1 += $value ** 2;
+        }
+
+        foreach ($vec2 as $value) {
+            $magnitude2 += $value ** 2;
+        }
+
+        $magnitude1 = sqrt($magnitude1);
+        $magnitude2 = sqrt($magnitude2);
+
+        if ($magnitude1 * $magnitude2 == 0) {
+            return 0;
+        } else {
+            return $dotProduct / ($magnitude1 * $magnitude2);
+        }
+    }
+
+
+    function textToVector($description)
+    {
+
+        $cleanedDesc = strtolower(preg_replace('/[^\w\s]/', '', $description));
+
+
+        $words = explode(' ', $cleanedDesc);
+
+
+        $stopWords = array('the', 'and', 'in', 'with', 'is', 'for', 'a', 'of', 'to', 'an', 'by');
+        $keywords = array_diff($words, $stopWords);
+
+
+        $frequency = array_count_values($keywords);
+        return $frequency;
+    }
+
+
+    $currentJobId = isset($_GET['job_id']) ? intval($_GET['job_id']) : 0;
+    if ($currentJobId == 0) {
+        die("Invalid job ID.");
+    }
+
+
+    $conn = new mysqli('localhost', 'root', '', 'jobportal');
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
+
+
+    $currentJobQuery = "SELECT j.points, c.name AS company_name, c.logo AS company_logo FROM jobs j JOIN company c ON j.company_id = c.id WHERE j.id = ?";
+    $stmt = $conn->prepare($currentJobQuery);
+    $stmt->bind_param("i", $currentJobId);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $currentJob = $result->fetch_assoc();
+    if (!$currentJob) {
+        die("Job not found.");
+    }
+    $currentJobDescription = $currentJob['points'];
+
+
+    $jobQuery = "SELECT j.id, j.points, j.title, j.location, c.name AS company_name, c.logo AS company_logo FROM jobs j JOIN company c ON j.company_id = c.id WHERE j.id != ? ";
+    $stmt = $conn->prepare($jobQuery);
+    $stmt->bind_param("i", $currentJobId);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $jobList = $result->fetch_all(MYSQLI_ASSOC);
+
+
+    $currentJobVector = textToVector($currentJobDescription);
+
+
+    $similarityScores = [];
+    foreach ($jobList as $job) {
+        $jobVector = textToVector($job['points']);
+        $similarity = cosineSimilarity($currentJobVector, $jobVector);
+        if ($similarity >= 0) {
+            $similarityScores[] = [
+                'job_id' => $job['id'],
+                'similarity' => $similarity,
+                'company_logo' => $job['company_logo'],
+                'job_title' => $job['title'],
+                'location' => $job['location'],
+            ];
+        }
+    }
+
+
+    usort($similarityScores, function ($a, $b) {
+        return $b['similarity'] <=> $a['similarity'];
+    });
+    $similarityScores = array_slice($similarityScores, 0, 5);
+
+
+    echo '<div class="job-grid">';
+    foreach ($similarityScores as $score) {
+        echo '<div class="job-card">';
+        echo '<img src="' . htmlspecialchars($score['company_logo']) . '" alt="Company Logo">';
+        echo '<a href="?job_id=' . htmlspecialchars($score['job_id']) . '">' . htmlspecialchars($score['job_title']) . '</a>';
+        echo '<p>Location: ' . htmlspecialchars($score['location']) . '</p>';
+        echo '<p>Similarity Score: ' . round($score['similarity'], 2) . '</p>';
+        echo '</div>';
+    }
+    echo '</div>';
+
+    $conn->close();
+    ?>
+
+
+
     <footer>
         <div class="footer-content">
             <h3>JOBSPACE</h3>
@@ -357,29 +467,23 @@ mysqli_stmt_close($stmt);
             </ul>
         </div>
         <div class="footer-bottom">
-            <p>copyright &copy; 2023 All Rights Reserved<span>&nbsp; Arbeen & Shisham</span></p>
+            <p>copyright &copy; 2023 All Rights Reserved<span>&nbsp; Arbeen</span></p>
         </div>
     </footer>
 
     <script>
-     
         function message() {
-    var cv = document.getElementById('imageUpload');
-    const success = document.getElementById('success');
-    const danger = document.getElementById('danger');
 
-    if (cv.value === "") {
-        danger.style.display = 'block';
-    } else {
-        success.style.display = 'block';
+            var cv = document.getElementById('imageUpload');
+            const success = document.getElementById('success');
+            const danger = document.getElementById('danger');
 
-        // Delay the redirection by 2 seconds (adjust the time as needed)
-        setTimeout(function () {
-            window.location.href = 'http://localhost/myjobwebsite/jobs/jobs.php?job_id=' + <?php echo $job_id; ?>;
-        }, 10000);
-    }
-}
-
+            if (cv == "") {
+                danger.style.display = 'block';
+            } else {
+                success.style.display = 'block';
+            }
+        }
     </script>
 
 </body>

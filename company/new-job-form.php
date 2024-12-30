@@ -3,11 +3,11 @@ session_start();
 // Check if the user is not logged in with a valid session
 if (!isset($_SESSION['company_id'])) {
     // Redirect to the login page or any other appropriate page
-    header("Location: company-login.php");
+    header('Location: company-login.php');
     exit();
 }
 
-include("../homepage/connection.php");
+include '../homepage/connection.php';
 ?>
 <!DOCTYPE html>
 <html>
@@ -82,6 +82,7 @@ include("../homepage/connection.php");
     <div class="container">
         <h2><i class="fas fa-briefcase"></i> Add Job</h2>
         <form action="new-job.php" method="post">
+
             <div class="form-group">
                 <label for="title"><i class="fas fa-heading"></i> Title:</label>
                 <input type="text" name="title" id="title" required />
@@ -96,7 +97,7 @@ include("../homepage/connection.php");
 
             <div class="form-group">
                 <label for="deadline"><i class="fas fa-clock"></i> Deadline:</label>
-                <input type="datetime-local" name="deadline" id="deadline" required />
+                <input type="date" name="deadline" id="deadline" required />
                 <span id="deadline-error"></span>
             </div>
 
@@ -141,6 +142,9 @@ include("../homepage/connection.php");
                 <select name="type" id="type" required>
                     <option value="">Select Job Type
                     <option value="1">IT</option>
+                    <option value="2">Office</option>
+                    <option value="3">Labor</option>
+                    <option value="4"></option>
                     </option>
                 </select>
 
@@ -167,7 +171,6 @@ include("../homepage/connection.php");
                 </select>
 
             </div>
-
             <div class="form-group">
                 <label for="job_level"><i class="fas fa-tags"></i> Job Level:</label>
                 <select name="job_level" id="job_level" required>
@@ -193,6 +196,15 @@ include("../homepage/connection.php");
 
         </form>
     </div>
+
+    <script>
+        
+    </script>
 </body>
 
 </html>
+Strong knowledge of SQL and relational databases (e.g., SQL Server) and familiarity with ORM frameworks like Entity Framework.
+Experience with cloud platforms (e.g., Azure, AWS) and containerization (e.g., Docker) is a plus.
+Familiarity with front-end frameworks such as React or Angular is beneficial.
+Excellent problem-solving skills with the ability to work independently and in a team.
+Solid understanding of software development lifecycle (SDLC), Agile methodologies, and DevOps practices.

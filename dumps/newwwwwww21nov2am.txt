@@ -1,0 +1,157 @@
+<?php
+include("../homepage/connection.php");
+
+// Check if a job ID is provided in the URL
+if (isset($_GET['job_id'])) {
+    $job_id = $_GET['job_id'];
+
+    // Fetch job details
+    $query = "
+        SELECT j.*, c.name AS company_name, c.logo AS company_logo 
+        FROM jobs j
+        JOIN company c ON j.company_id = c.id
+        WHERE j.id = $job_id
+    ";
+    $result = mysqli_query($conn, $query);
+
+    if ($result && mysqli_num_rows($result) > 0) {
+        $job = mysqli_fetch_assoc($result);
+    } else {
+        die("Job not found.");
+    }
+
+    // Fetch recommended jobs (replace this with your logic or recommendation system)
+    $recommendedQuery = "SELECT id, title, location FROM jobs WHERE id != $job_id LIMIT 3";
+    $recommendedResult = mysqli_query($conn, $recommendedQuery);
+    $recommendedJobs = mysqli_fetch_all($recommendedResult, MYSQLI_ASSOC);
+} else {
+    die("Job ID not provided.");
+}
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Details - JobSpace</title>
+    <link rel="stylesheet" href="job-details.css"> <!-- Main Stylesheet -->
+</head>
+
+<body>
+    <!-- Navbar -->
+    <header>
+        <nav class="navbar">
+            <div class="navbar-container">
+                <a href="../homepage/user-index.php" class="logo">JobSpace.</a>
+                <ul class="nav-list">
+                    <li class="nav-item">
+                        <a href="#homebar" class="nav-link">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#category" class="nav-link">Categories</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#about" class="nav-link">About Us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#jobs" class="nav-link">Find Jobs</a>
+                    </li>
+                </ul>
+                <div class="signin-signup">
+                    <div class="join">
+                        <a href="../homepage/my-info.php" class="sign-in">My Profile</a>
+                        <a href="../homepage/logout.php" class="sign-up">Log Out</a>
+                    </div>
+                    <div id="menu-icon" class="fa-solid fa-bars"></div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <div class="main-container">
+            <!-- Left Content -->
+            <div class="job-details">
+                <div class="job-header">
+                    <div class="company-logo">
+                        <img src="../logos/<?php echo $job['company_logo']; ?>" alt="Company Logo">
+                    </div>
+                    <div class="job-info">
+                        <h1><?php echo htmlspecialchars($job['title']); ?></h1>
+                        <p class="company-name"><?php echo htmlspecialchars($job['company_name']); ?></p>
+                        <p class="job-location"><i class="fas fa-map-marker-alt"></i> <?php echo htmlspecialchars($job['location']); ?></p>
+                        <p class="job-salary"><i class="fas fa-dollar-sign"></i> <?php echo htmlspecialchars($job['salary']); ?></p>
+                    </div>
+                </div>
+
+                <div class="job-description">
+                    <h2>Job Description</h2>
+                    <p><?php echo nl2br(htmlspecialchars($job['details'])); ?></p>
+                </div>
+
+                <div class="job-requirements">
+                    <h2>Required Knowledge</h2>
+                    <ul>
+                        <?php
+                        $knowledge_points = explode("\n", $job['points']);
+                        foreach ($knowledge_points as $point) {
+                            $point = trim($point);
+                            if (!empty($point)) {
+                                echo "<li>" . htmlspecialchars($point) . "</li>";
+                            }
+                        }
+                        ?>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Right Content (Job Details Card) -->
+            <div class="job-details-card">
+                <!-- Part 1: Job Overview -->
+                <div class="job-overview">
+                    <h3>Job Overview</h3>
+                    <ul>
+                        <li>Posted Date: <span><?php echo htmlspecialchars($job['posted_date']); ?></span></li>
+                        <li>Location: <span><?php echo htmlspecialchars($job['location']); ?></span></li>
+                        <li>Vacancy: <span><?php echo htmlspecialchars($job['no_of_vacancy']); ?></span></li>
+                        <li>Job Nature: <span><?php echo htmlspecialchars($job['available_for']); ?></span></li>
+                        <li>Salary: <span><?php echo htmlspecialchars($job['salary']); ?></span></li>
+                        <li>Application Date: <span><?php echo htmlspecialchars($job['deadline']); ?></span></li>
+                    </ul>
+                    <form action="apply-job.php" method="POST" enctype="multipart/form-data">
+                        <input type="hidden" name="job_id" value="<?php echo $job['id']; ?>">
+                        <label for="cv-upload">Upload CV:</label>
+                        <input type="file" id="cv-upload" name="cv" required>
+                        <button type="submit" class="apply-btn">Apply Now</button>
+                    </form>
+                </div>
+
+                <!-- Part 2: Recommended Jobs -->
+                <div class="recommended-jobs">
+                    <h3>Recommended Jobs</h3>
+                    <ul>
+                        <?php foreach ($recommendedJobs as $recJob) { ?>
+                            <li>
+                                <a href="job-details.php?job_id=<?php echo $recJob['id']; ?>">
+                                    <?php echo htmlspecialchars($recJob['title']); ?> - <?php echo htmlspecialchars($recJob['location']); ?>
+                                </a>
+                            </li>
+                        <?php } ?>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <p>© 2023 JobSpace. All Rights Reserved.</p>
+        </div>
+    </footer>
+</body>
+
+</html>

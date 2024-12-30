@@ -119,7 +119,7 @@ $result = mysqli_query($conn, $query);
             </div>
         </nav>
     </header>
-        <!-- Banner -->
+    <!-- Banner -->
     <section id="homebar">
         <div class="banner">
             <div class="banner-text">
@@ -162,7 +162,7 @@ $result = mysqli_query($conn, $query);
         </div>
     </section>
 
-    <section id = "category">
+    <section id="category">
 
         <div class="categories">
             <div class="categorie-text">
@@ -187,59 +187,58 @@ $result = mysqli_query($conn, $query);
                 </div>
             </div>
         </div>
-        </section>
+    </section>
 
-    
+
     <section id="jobs">
-    <div class="jobs-list-container">
-        <h2>Jobs</h2>
-        <input class="job-search" type="text" placeholder="Search here..." />
+        <div class="jobs-list-container">
+            <h2>Jobs</h2>
+            <input class="job-search" type="text" placeholder="Search here..." />
 
-        <div class="jobs">
-            <?php
-            if (mysqli_num_rows($result) > 0) {
-                $count = 0;
-                while ($row = mysqli_fetch_assoc($result)) {
-                    if ($count % 3 == 0) {
-                        echo '<div class="row">';
-                    }
-                    echo '<div class="job">';
-                    echo '<img src="../logos/' . $row['company_logo'] . '" alt="' . $row['company_name'] . '">';
-                    echo '<h3 class="job-title">' . $row['title'] . '</h3>';
-                    echo '<div class="details"><i class="fas fa-map-marker-alt"> </i>    ' . $row['location'] . '</div>';
-                    echo '<a class="details-btn" href="../jobs/jobs.php?job_id=' . $row['id'] . '">More Details</a>';
+            <div class="jobs">
+                <?php
+                if (mysqli_num_rows($result) > 0) {
+                    $count = 0;
+                    while ($row = mysqli_fetch_assoc($result)) {
+                        if ($count % 3 == 0) {
+                            echo '<div class="row">';
+                        }
+                        echo '<div class="job">';
+                        echo '<img src="../logos/' . $row['company_logo'] . '" alt="' . $row['company_name'] . '">';
+                        echo '<h3 class="job-title">' . $row['title'] . '</h3>';
+                        echo '<div class="details"><i class="fas fa-map-marker-alt"> </i>    ' . $row['location'] . '</div>';
+                        echo '<a class="details-btn" href="../jobs/jobs.php?job_id=' . $row['id'] . '">More Details</a>';
 
-                    echo '<span class="open-positions">No of Vacancy: '  . $row['no_of_vacancy'] . '</span>';
-                    echo '</div>';
-                    if ($count % 3 == 2 || $count == mysqli_num_rows($result) - 1) {
+                        echo '<span class="open-positions">No of Vacancy: ' . $row['no_of_vacancy'] . '</span>';
                         echo '</div>';
+                        if ($count % 3 == 2 || $count == mysqli_num_rows($result) - 1) {
+                            echo '</div>';
+                        }
+                        $count++;
                     }
-                    $count++;
                 }
-            }
-            ?>
+                ?>
+            </div>
         </div>
-    </div>
-        </section>
+    </section>
 
     <section id="about">
-      <div class="main1">
-        <img src="../images/banner1.png" alt="banner">
-        <div class="about-text">
-          <h1>About Us</h1>
-          <h5>Connecting Employees with Employers</h5>
-          <p>Lorem ipsum dolor sit, amet consectetur 
-            adipisicing elit. Excepturi dolorum numquam recusandae
-            corrupti inventore consectetur veniam sapiente,
-            accusamus, eius sed sint aliquam et minima modi atque.
-            Consequatur perspiciatis neque quibusdam consectetur
-            totam repellendus dolore sunt temporibus? Quidem at 
-            quas nisi mollitia tenetur debitis veritatis adipisci 
-            reiciendis. Nobis, provident? Totam enim recusandae 
-            adipisci rerum esse.</p>
-            <button type="button" class="about-us-button">Read More</button>
+        <div class="main1">
+            <img src="../images/banner1.png" alt="banner">
+            <div class="about-text">
+                <h1>About Us</h1>
+                <h5>Connecting Employees with Employers</h5>
+                <p>Jobspace service was developed for creating an interactive job vacancy form for candidates. This web
+          application manages update both from the job seekers as well as the companies. It’s unique development
+          methodology helps in acquiring the client and candidate information and separating them according to the job
+          requirements and vacancies.
+          The online access to it provides details of the job. An employer being registered in the web site has the
+          facility to use the services. Being an authorized user, he can publish vacancy details and can search number
+          of Employees on portal and also, he can search candidates on basis of the key skill which employee provides on
+          registration.</p>
+                <button type="button" class="about-us-button">Read More</button>
+            </div>
         </div>
-      </div>
     </section>
 
     <footer>
@@ -255,7 +254,7 @@ $result = mysqli_query($conn, $query);
             </ul>
         </div>
         <div class="footer-bottom">
-            <p>copyright &copy; 2023 All Rights Reserved<span>&nbsp; Arbeen & Shisham</span></p>
+            <p>copyright &copy; 2023 All Rights Reserved<span>&nbsp; Arbeen</span></p>
         </div>
     </footer>
 

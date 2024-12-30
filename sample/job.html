@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Details - JobSpace</title>
+    <link rel="stylesheet" href="job-details.css"> <!-- Main Stylesheet -->
+</head>
+
+<body>
+    <!-- Navbar -->
+    <header>
+        <nav class="navbar">
+            <div class="navbar-container">
+                <a href="../homepage/user-index.php" class="logo">JobSpace</a>
+                <ul class="nav-links">
+                    <li><a href="../homepage/user-index.php">Home</a></li>
+                    <li><a href="#">View Jobs</a></li>
+                    <li><a href="#">Features</a></li>
+                    <li><a href="#">About Us</a></li>
+                </ul>
+                <div class="auth-links">
+                    <a href="../homepage/my-info.php" class="profile-link">My Profile</a>
+                    <a href="../homepage/logout.php" class="logout-link">Log Out</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <div class="main-container">
+            <!-- Left Content -->
+            <div class="job-details">
+                <!-- Job Header -->
+                <div class="job-header">
+                    <div class="company-logo">
+                        <img src="../logos/company-logo.png" alt="Company Logo">
+                    </div>
+                    <div class="job-info">
+                        <h1>Frontend Developer</h1>
+                        <p class="company-name">Tech Company Inc.</p>
+                        <p class="job-location"><i class="fas fa-map-marker-alt"></i> San Francisco, CA</p>
+                       
+                    </div>
+                </div>
+
+                <!-- Job Description -->
+                <div class="job-description">
+                    <h2>Job Description</h2>
+                    <p>
+                        We are looking for a skilled Frontend Developer to join our team. You will be responsible for 
+                        building and maintaining high-quality, responsive web interfaces.
+                    </p>
+                </div>
+
+                <!-- Required Knowledge -->
+                <div class="job-requirements">
+                    <h2>Required Knowledge</h2>
+                    <ul>
+                        <li>Proficiency in JavaScript, HTML, and CSS</li>
+                        <li>Experience with React and Redux</li>
+                        <li>Familiarity with modern build tools (e.g., Webpack)</li>
+                    </ul>
+                </div>
+
+                <!-- Education & Experience -->
+                <div class="education-experience">
+                    <h2>Education & Experience</h2>
+                    <ul>
+                        <li>Bachelor's degree in Computer Science or related field</li>
+                        <li>2+ years of experience in Frontend Development</li>
+                        <li>Portfolio showcasing relevant projects</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Right Content (Job Details Card) -->
+            <div class="job-details-card">
+                <h3>Job Overview</h3>
+                <ul>
+                    <li>Posted Date: <span>2023-09-28</span></li>
+                
+                    <li>Vacancy: <span>4</span></li>
+                    <li>Job Nature: <span>Full-Time</span></li>
+                    <li>Salary: <span>100,000</span></li>
+                    <li>Application Date: <span>2023-10-07</span></li>
+                </ul>
+                <button class="apply-btn">Upload CV: Apply Now</button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <p>© 2023 JobSpace. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script src="job-details.js"></script> <!-- JavaScript File -->
+</body>
+
+</html>
